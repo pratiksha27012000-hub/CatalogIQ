@@ -6,7 +6,7 @@ os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 os.environ.setdefault("HF_HUB_DISABLE_TELEMETRY", "1")
 
 BASE_DIR = Path(__file__).resolve().parent
-SRC_DIR = BASE_DIR / "src"
+SRC_DIR = BASE_DIR / "src" / "src"
 DB_PATH = BASE_DIR / "catalogiq.duckdb"
 
 CATALOGUE_ID = "cat_6bba60c7"
