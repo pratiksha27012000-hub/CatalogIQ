@@ -177,6 +177,12 @@ The original CatalogIQ dashboard is organized around three connected work areas.
 
 *Actual application capture showing catalogue upload, column mapping, the five catalogue dimensions, inventory information and the CatalogIQ Assistant.*
 
+### CatalogIQ query results
+
+![CatalogIQ query results](assets/catalogiq-query-results.png)
+
+*CatalogIQ answering natural-language questions using catalogue data.*
+
 ### The three-panel workflow
 
 | Panel | Purpose | Main actions |
@@ -475,6 +481,7 @@ This README is the overview. The following documents provide the detailed projec
 | [Dashboard layout PNG](assets/dashboard-layout.png) | Three-panel UI schematic. |
 | [Dashboard layout SVG](assets/dashboard-layout.svg) | Editable vector version of the dashboard schematic. |
 | [Assistant results PNG](assets/assistant-results.png) | Actual prototype assistant capture showing two tested questions. |
+| Query results | `assets/catalogiq-query-results.png` | Example of natural-language catalogue querying |
 
 ---
 
