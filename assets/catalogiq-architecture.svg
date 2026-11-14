@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="1203" viewBox="0 0 2048 1203" role="img" aria-labelledby="title desc">
+<title id="title">CatalogIQ architecture overview — prototype</title>
+<desc id="desc">A three-stage architecture diagram. Catalogue preparation uploads and maps source data, stores canonical records and extracts attributes. The data and retrieval layer uses Sentence Transformers, a per-catalogue FAISS index, and DuckDB as the source of truth. Questions enter through a Gradio dashboard, pass through a query router and interpreter, then follow structured, hybrid or semantic retrieval paths. An answer generator returns exact, hybrid-verified or candidate-labelled responses.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#071426"/><stop offset="0.55" stop-color="#080f1e"/><stop offset="1" stop-color="#17112c"/></linearGradient>
+  <linearGradient id="logo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3e86f6"/><stop offset="1" stop-color="#8755f2"/></linearGradient>
+  <linearGradient id="card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#152238"/><stop offset="1" stop-color="#0e1728"/></linearGradient>
+  <radialGradient id="glowBlue"><stop offset="0" stop-color="#1557a4" stop-opacity=".25"/><stop offset="1" stop-color="#1557a4" stop-opacity="0"/></radialGradient>
+  <radialGradient id="glowPurple"><stop offset="0" stop-color="#5b2c9c" stop-opacity=".22"/><stop offset="1" stop-color="#5b2c9c" stop-opacity="0"/></radialGradient>
+  <pattern id="dots" width="42" height="42" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#25436c" opacity=".55"/></pattern>
+  <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#8195b6"/></marker>
+  <marker id="arrowCyan" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#20d9f2"/></marker>
+  <style>
+    text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+    .title{font-size:54px;font-weight:850;letter-spacing:-2px;fill:#edf3ff}
+    .subtitle{font-size:20px;fill:#a8b7d0}
+    .eyebrow{font-size:16px;font-weight:800;letter-spacing:2.1px}
+    .cardTitle{font-size:23px;font-weight:760;fill:#e5ecfa}
+    .cardBody{font-size:16px;fill:#92a2bc}
+    .small{font-size:14px;fill:#91a2bd}
+    .nodeTitle{font-size:19px;font-weight:760;fill:#e4ecfb}
+    .nodeBody{font-size:15px;fill:#91a2bb}
+    .label{font-size:14px;font-weight:700;letter-spacing:1.7px;fill:#7f93b3}
+    .white{fill:#ecf3ff}
+    .cyan{fill:#23d9f1}.green{fill:#24d47a}.blue{fill:#438bff}.purple{fill:#9b65ff}.orange{fill:#ffa600}
+    .box{fill:url(#card);stroke-width:1.7}
+    .line{fill:none;stroke:#8195b6;stroke-width:2.1;marker-end:url(#arrow)}
+    .dataLine{fill:none;stroke:#20d9f2;stroke-width:2;stroke-dasharray:5 7;marker-end:url(#arrowCyan)}
+  </style>
+</defs>
+
+<!-- Background -->
+<rect width="2048" height="1203" fill="url(#bg)"/>
+<rect width="2048" height="1203" fill="url(#dots)"/>
+<ellipse cx="230" cy="250" rx="650" ry="480" fill="url(#glowBlue)"/>
+<ellipse cx="1770" cy="220" rx="560" ry="470" fill="url(#glowPurple)"/>
+
+<!-- Brand header -->
+<rect x="90" y="40" width="76" height="76" rx="20" fill="url(#logo)"/>
+<text x="128" y="91" text-anchor="middle" font-size="26" font-weight="850" fill="#fff">IQ</text>
+<text class="title" x="185" y="101">Catalog<tspan fill="#24d8ef">IQ</tspan></text>
+<text class="subtitle" x="187" y="133">Ask your catalogue anything. The database computes the numbers; the model interprets and explains.</text>
+<rect x="1563" y="54" width="360" height="42" rx="21" fill="#172541" stroke="#294d92" stroke-width="1.4"/>
+<text x="1743" y="81" text-anchor="middle" font-size="14" font-weight="800" letter-spacing="1.7" fill="#83b2ff">ARCHITECTURE OVERVIEW · PROTOTYPE</text>
+
+<!-- Prepare header -->
+<circle cx="97" cy="185" r="5.5" fill="#20d9f2"/>
+<text class="eyebrow cyan" x="116" y="191">PREPARE · ONCE PER CATALOGUE</text>
+
+<!-- Top cards -->
+<g>
+  <rect class="box" x="90" y="217" width="408" height="166" rx="22" stroke="#0795b4"/>
+  <path d="M113 218H201" stroke="#20d9f2" stroke-width="4" stroke-linecap="round"/>
+  <rect x="115" y="243" width="50" height="50" rx="13" fill="#0b3446" stroke="#087e98"/>
+  <path d="M140 280V252M130 262L140 252L150 262M128 281H152" stroke="#20d9f2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text class="cardTitle" x="184" y="275">Upload a catalogue</text>
+  <text class="cardBody" x="115" y="329">CSV, XLSX or JSON,</text><text class="cardBody" x="115" y="354">any product file</text>
+</g>
+<path class="line" d="M504 300H566"/>
+<g>
+  <rect class="box" x="575" y="217" width="408" height="166" rx="22" stroke="#0789ab"/>
+  <path d="M598 218H686" stroke="#20d9f2" stroke-width="4" stroke-linecap="round"/>
+  <rect x="600" y="243" width="50" height="50" rx="13" fill="#0b3446" stroke="#087e98"/>
+  <rect x="612" y="256" width="26" height="23" rx="2" fill="none" stroke="#20d9f2" stroke-width="2.1"/><path d="M612 264H638M621 256V279" stroke="#20d9f2" stroke-width="1.8"/>
+  <text class="cardTitle" x="670" y="275">Map the columns</text>
+  <text class="cardBody" x="600" y="329">Five canonical fields: title, description,</text><text class="cardBody" x="600" y="354">selling price, cost price, stock</text>
+</g>
+<path class="line" d="M989 300H1054"/>
+<g>
+  <rect class="box" x="1065" y="217" width="408" height="166" rx="22" stroke="#0789ab"/>
+  <path d="M1088 218H1176" stroke="#20d9f2" stroke-width="4" stroke-linecap="round"/>
+  <rect x="1090" y="243" width="50" height="50" rx="13" fill="#0b3446" stroke="#087e98"/>
+  <path d="M1103 260L1115 253L1127 260L1115 267Z M1103 270L1115 277L1127 270" fill="none" stroke="#20d9f2" stroke-width="2.2" stroke-linejoin="round"/>
+  <text class="cardTitle" x="1160" y="275">Canonical records</text>
+  <text class="cardBody" x="1090" y="329">Normalised products, with original</text><text class="cardBody" x="1090" y="354">source metadata kept for audit</text>
+</g>
+<path class="line" d="M1479 300H1542"/>
+<g>
+  <rect class="box" x="1550" y="217" width="373" height="166" rx="22" stroke="#7144c4"/>
+  <path d="M1573 218H1661" stroke="#9b65ff" stroke-width="4" stroke-linecap="round"/>
+  <rect x="1575" y="243" width="50" height="50" rx="13" fill="#251b49" stroke="#613ca7"/>
+  <path d="M1600 251L1604 263L1616 267L1604 271L1600 283L1596 271L1584 267L1596 263Z" fill="none" stroke="#9b65ff" stroke-width="2.1" stroke-linejoin="round"/>
+  <text class="cardTitle" x="1644" y="275">Extract attributes</text>
+  <text class="cardBody" x="1575" y="329">A model finds materials and features,</text><text class="cardBody" x="1575" y="354">each backed by source evidence</text>
+</g>
+
+<!-- Data/retrieval area -->
+<rect x="90" y="445" width="1834" height="190" rx="30" fill="#0d1b2b" fill-opacity=".84" stroke="#29446b" stroke-width="1.7" stroke-dasharray="9 8"/>
+<circle cx="121" cy="478" r="5.5" fill="#24d47a"/>
+<text class="eyebrow green" x="140" y="484">DATA AND RETRIEVAL</text>
+
+<!-- Embedding box -->
+<rect class="box" x="128" y="497" width="435" height="84" rx="18" stroke="#b87907"/>
+<path d="M148 498H234" stroke="#ffa600" stroke-width="4" stroke-linecap="round"/>
+<rect x="146" y="514" width="50" height="50" rx="12" fill="#362711" stroke="#9b6507"/>
+<g fill="none" stroke="#ffa600" stroke-width="2"><circle cx="160" cy="531" r="3"/><circle cx="181" cy="526" r="3"/><circle cx="172" cy="550" r="3"/><path d="M163 531L178 527M162 534L170 547M180 529L173 547"/></g>
+<text class="nodeTitle" x="213" y="533">Sentence Transformers</text>
+<text class="nodeBody" x="213" y="558">embeddings built from canonical records</text>
+<path class="line" d="M568 540H608"/>
+
+<!-- FAISS -->
+<rect class="box" x="613" y="497" width="488" height="84" rx="18" stroke="#b87907"/>
+<path d="M634 498H722" stroke="#ffa600" stroke-width="4" stroke-linecap="round"/>
+<rect x="632" y="514" width="50" height="50" rx="12" fill="#362711" stroke="#9b6507"/>
+<circle cx="653" cy="535" r="10" fill="none" stroke="#ffa600" stroke-width="2.5"/><path d="M660 542L669 551" stroke="#ffa600" stroke-width="2.5" stroke-linecap="round"/>
+<text class="nodeTitle" x="699" y="533">FAISS index per catalogue</text>
+<text class="nodeBody" x="699" y="558">isolated semantic search</text>
+
+<!-- DuckDB -->
+<rect class="box" x="1148" y="497" width="775" height="84" rx="18" stroke="#07864d"/>
+<path d="M1169 498H1258" stroke="#24d47a" stroke-width="4" stroke-linecap="round"/>
+<rect x="1167" y="514" width="50" height="50" rx="12" fill="#0d392c" stroke="#08784b"/>
+<ellipse cx="1192" cy="528" rx="11" ry="5" fill="none" stroke="#24d47a" stroke-width="2"/><path d="M1181 528V549C1181 555 1203 555 1203 549V528M1181 538C1181 544 1203 544 1203 538" fill="none" stroke="#24d47a" stroke-width="2"/>
+<text class="nodeTitle" x="1235" y="533">DuckDB: the source of truth for numbers</text>
+<text class="nodeBody" x="1235" y="558">catalogue registry, canonical records and extracted attributes</text>
+
+<!-- Persistence connectors -->
+<path class="dataLine" d="M1274 385V489"/><text x="1289" y="429" class="small" fill="#6fe8fa">writes records</text>
+<path class="dataLine" d="M1740 385V489"/><text x="1755" y="429" class="small" fill="#6fe8fa">writes attributes</text>
+<text class="small" x="122" y="615">♧  A catalogue ID on every row, attribute and vector: catalogues never mix</text>
+
+<!-- Ask section header -->
+<circle cx="97" cy="750" r="5.5" fill="#438bff"/>
+<text class="eyebrow blue" x="116" y="756">ASK · EVERY QUESTION</text>
+<text class="label" x="1376" y="718" text-anchor="middle">THREE RETRIEVAL PATHS</text>
+<text class="label" x="1735" y="718" text-anchor="middle">EVERY ANSWER IS LABELLED</text>
+
+<!-- Main ask nodes -->
+<g>
+  <rect class="box" x="90" y="829" width="290" height="133" rx="20" stroke="#078fae"/>
+  <path d="M112 830H198" stroke="#20d9f2" stroke-width="4" stroke-linecap="round"/>
+  <rect x="113" y="850" width="45" height="45" rx="11" fill="#0b3446" stroke="#087e98"/>
+  <rect x="124" y="860" width="23" height="22" fill="none" stroke="#20d9f2" stroke-width="2"/><path d="M124 867H147M131 860V882" stroke="#20d9f2" stroke-width="1.6"/>
+  <text class="nodeTitle" x="113" y="925">Gradio dashboard</text>
+  <text class="nodeBody" x="113" y="949">upload, mapping and chat</text>
+</g>
+<path class="line" d="M385 895H418"/>
+<g>
+  <rect class="box" x="423" y="829" width="244" height="133" rx="20" stroke="#226bd3"/>
+  <path d="M445 830H531" stroke="#438bff" stroke-width="4" stroke-linecap="round"/>
+  <rect x="447" y="850" width="45" height="45" rx="11" fill="#142e50" stroke="#225bb0"/>
+  <path d="M470 859V869M470 869L460 880M470 869L481 880" stroke="#438bff" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="470" cy="857" r="3" fill="#438bff"/><circle cx="460" cy="882" r="3" fill="#438bff"/><circle cx="481" cy="882" r="3" fill="#438bff"/>
+  <text class="nodeTitle" x="447" y="925">Query router</text>
+  <text class="nodeBody" x="447" y="949">picks the retrieval path</text>
+</g>
+<path class="line" d="M672 895H711"/>
+<g>
+  <rect class="box" x="716" y="829" width="248" height="133" rx="20" stroke="#7144c4"/>
+  <path d="M738 830H824" stroke="#9b65ff" stroke-width="4" stroke-linecap="round"/>
+  <rect x="740" y="850" width="45" height="45" rx="11" fill="#251b49" stroke="#613ca7"/>
+  <path d="M751 861H772M751 873H772M756 856L751 861L756 866M767 868L772 873L767 878" fill="none" stroke="#9b65ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text class="nodeTitle" x="740" y="925">Query interpreter</text>
+  <text class="nodeBody" x="740" y="949">question to query spec</text>
+</g>
+
+<!-- Retrieval grouping -->
+<rect x="1021" y="730" width="354" height="336" rx="26" fill="#0e192a" fill-opacity=".55" stroke="#29446b" stroke-width="1.7" stroke-dasharray="8 7"/>
+<!-- branch lines -->
+<path class="line" d="M968 895H1003V778H1038"/>
+<path class="line" d="M968 895H1038"/>
+<path class="line" d="M968 895H1003V1010H1038"/>
+<path class="dataLine" d="M1095 728V588"/><text class="small" x="936" y="665" fill="#6fe8fa">structured and hybrid read</text>
+<path class="dataLine" d="M1058 728V586"/><text class="small" x="934" y="693" fill="#6fe8fa">semantic reads</text>
+
+<!-- Three path cards -->
+<g>
+  <rect class="box" x="1040" y="743" width="315" height="88" rx="18" stroke="#07864d"/>
+  <path d="M1061 744H1149" stroke="#24d47a" stroke-width="4" stroke-linecap="round"/>
+  <rect x="1059" y="760" width="49" height="49" rx="12" fill="#0d392c" stroke="#08784b"/>
+  <text x="1083" y="794" text-anchor="middle" font-size="31" fill="#24d47a">Σ</text>
+  <text class="nodeTitle" x="1124" y="780">Structured path</text>
+  <text class="nodeBody" x="1124" y="807">exact counts and filters</text>
+</g>
+<g>
+  <rect class="box" x="1040" y="850" width="315" height="88" rx="18" stroke="#226bd3"/>
+  <path d="M1061 851H1149" stroke="#438bff" stroke-width="4" stroke-linecap="round"/>
+  <rect x="1059" y="867" width="49" height="49" rx="12" fill="#142e50" stroke="#225bb0"/>
+  <path d="M1072 881L1084 892L1096 881M1084 892V905" fill="none" stroke="#438bff" stroke-width="2.5" stroke-linecap="round"/>
+  <text class="nodeTitle" x="1124" y="887">Hybrid path</text>
+  <text class="nodeBody" x="1124" y="914">filters + retrieval</text>
+</g>
+<g>
+  <rect class="box" x="1040" y="957" width="315" height="88" rx="18" stroke="#b87907"/>
+  <path d="M1061 958H1149" stroke="#ffa600" stroke-width="4" stroke-linecap="round"/>
+  <rect x="1059" y="974" width="49" height="49" rx="12" fill="#362711" stroke="#9b6507"/>
+  <g fill="none" stroke="#ffa600" stroke-width="2"><circle cx="1073" cy="987" r="3"/><circle cx="1092" cy="987" r="3"/><circle cx="1083" cy="1009" r="3"/><path d="M1076 988L1089 988M1075 990L1081 1006M1090 990L1085 1006"/></g>
+  <text class="nodeTitle" x="1124" y="994">Semantic path</text>
+  <text class="nodeBody" x="1124" y="1021">ranked candidates</text>
+</g>
+
+<!-- Paths to answer generator -->
+<path class="line" d="M1359 786H1434"/>
+<path class="line" d="M1359 894H1434"/>
+<path class="line" d="M1359 1001H1434"/>
+
+<!-- Answer generator -->
+<rect class="box" x="1440" y="743" width="257" height="302" rx="22" stroke="#7144c4"/>
+<path d="M1462 744H1550" stroke="#9b65ff" stroke-width="4" stroke-linecap="round"/>
+<rect x="1465" y="767" width="49" height="49" rx="12" fill="#251b49" stroke="#613ca7"/>
+<path d="M1477 779H1502V797H1487L1480 804V797H1477Z" fill="none" stroke="#9b65ff" stroke-width="2.1" stroke-linejoin="round"/>
+<text class="nodeTitle" x="1465" y="844">Answer generator</text>
+<text class="nodeBody" x="1465" y="876">writes the reply from</text>
+<text class="nodeBody" x="1465" y="899">retrieved evidence only.</text>
+<text x="1465" y="944" font-size="16" font-weight="750" fill="#24d47a">The database</text>
+<text x="1465" y="966" font-size="16" font-weight="750" fill="#24d47a">does the maths.</text>
+
+<!-- Output labels -->
+<path class="line" d="M1701 786H1744"/>
+<path class="line" d="M1701 894H1744"/>
+<path class="line" d="M1701 1001H1744"/>
+<rect x="1750" y="759" width="195" height="54" rx="27" fill="#103b2c" stroke="#07864d" stroke-width="1.8"/>
+<text x="1847" y="793" text-anchor="middle" font-size="16" font-weight="850" letter-spacing="1.3" fill="#24d47a">EXACT</text>
+<rect x="1750" y="867" width="195" height="54" rx="27" fill="#142d50" stroke="#226bd3" stroke-width="1.8"/>
+<text x="1847" y="901" text-anchor="middle" font-size="15" font-weight="850" letter-spacing="1.1" fill="#438bff">HYBRID-VERIFIED</text>
+<rect x="1750" y="974" width="195" height="54" rx="27" fill="#3a2a11" stroke="#b87907" stroke-width="1.8"/>
+<text x="1847" y="1008" text-anchor="middle" font-size="16" font-weight="850" letter-spacing="1.3" fill="#ffa600">CANDIDATES</text>
+
+<!-- Feedback loop -->
+<path d="M1568 1048V1108H225V969" fill="none" stroke="#20d9f2" stroke-width="2.4" marker-end="url(#arrowCyan)"/>
+<text x="901" y="1140" text-anchor="middle" font-size="16" fill="#75e8f8">answer, evidence and label go back to the dashboard</text>
+
+<!-- Footer -->
+<text x="90" y="1180" font-size="14" fill="#7488aa">Gradio · DuckDB · FAISS · Sentence Transformers · Gemini</text>
+<circle cx="1442" cy="1173" r="6" fill="#24d47a"/><text x="1458" y="1179" font-size="14" fill="#9aabc4">exact</text>
+<circle cx="1540" cy="1173" r="6" fill="#438bff"/><text x="1556" y="1179" font-size="14" fill="#9aabc4">hybrid</text>
+<circle cx="1647" cy="1173" r="6" fill="#ffa600"/><text x="1663" y="1179" font-size="14" fill="#9aabc4">semantic</text>
+<circle cx="1785" cy="1173" r="6" fill="#9b65ff"/><text x="1801" y="1179" font-size="14" fill="#9aabc4">model-assisted</text>
+</svg>
