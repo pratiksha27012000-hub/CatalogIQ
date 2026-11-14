@@ -171,6 +171,12 @@ Make product catalogues easier to understand and act on by allowing teams to ask
 
 The original CatalogIQ dashboard is organized around three connected work areas.
 
+### Actual CatalogIQ dashboard
+
+![CatalogIQ multi-category catalogue dashboard](assets/catalogiq-dashboard.png)
+
+*Actual application capture showing catalogue upload, column mapping, the five catalogue dimensions, inventory information and the CatalogIQ Assistant.*
+
 ### The three-panel workflow
 
 | Panel | Purpose | Main actions |
@@ -463,6 +469,7 @@ This README is the overview. The following documents provide the detailed projec
 
 | Asset | Description |
 |---|---|
+| [Actual CatalogIQ dashboard PNG](assets/catalogiq-dashboard.png) | Real multi-category catalogue dashboard capture. |
 | [System architecture PNG](assets/catalogiq-architecture.png) | Rendered system architecture diagram. |
 | [System architecture SVG](assets/catalogiq-architecture.svg) | Editable vector version of the architecture diagram. |
 | [Dashboard layout PNG](assets/dashboard-layout.png) | Three-panel UI schematic. |
@@ -475,28 +482,15 @@ This README is the overview. The following documents provide the detailed projec
 
 ### Loom walkthrough
 
-**Status: to be recorded.**
+[▶ Watch the CatalogIQ product walkthrough on Loom](https://www.loom.com/share/8ea6cb1ed4544213933ca1a5e667cfd1)
 
-A concise 4–6 minute walkthrough should cover:
-
-1. The product problem and the intended user.
-2. The original three-panel dashboard.
-3. Upload and column-mapping experience.
-4. The five canonical dimensions and dynamic attributes.
-5. One structured count question.
-6. One attribute/hybrid retrieval question.
-7. The cotton-count investigation and what it taught us.
-8. Current limitations and next product milestones.
-
-Add the reviewed Loom link here when the recording is ready:
-
-`[Watch the CatalogIQ walkthrough](YOUR_LOOM_URL)`
+The walkthrough demonstrates the working multi-category catalogue experience, including catalogue upload, column mapping, catalogue dimensions and natural-language questions in the CatalogIQ Assistant.
 
 ### Screenshot checklist
 
 The current visual assets include a dashboard layout schematic and an actual assistant capture. Additional real application screenshots can be added after reviewing them for private information:
 
-- `assets/dashboard-full.png` — full original three-panel dashboard.
+- `assets/catalogiq-dashboard.png` — actual full dashboard screenshot included in this repository.
 - `assets/catalogue-upload.png` — upload and column-mapping panel.
 - `assets/catalogue-dimensions.png` — five canonical dimensions panel.
 - `assets/loom-thumbnail.png` — thumbnail linked to the Loom walkthrough.
