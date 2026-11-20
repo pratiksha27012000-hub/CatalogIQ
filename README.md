@@ -43,7 +43,7 @@ If you are reviewing CatalogIQ for the first time, follow this path:
 | **Retrieval** | Structured DuckDB queries · hybrid retrieval · semantic search with Sentence Transformers and FAISS |
 | **LLM integration** | Google Gemini for attribute extraction, query interpretation/filter extraction and grounded answer generation |
 | **Current status** | Working prototype; documented and evaluated against a small test catalogue; not publicly deployed |
-| **Repository visibility** | Private development repository |
+| **Repository visibility** | Public GitHub repository |
 
 > **Important scope note:** 100% product-level enrichment coverage means every product in the 40-item demo has at least one extracted attribute. It does not mean every possible attribute has been captured for every product.
 
