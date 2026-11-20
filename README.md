@@ -537,15 +537,18 @@ CatalogIQ/
 
 ---
 
-## 17. Privacy and project status
+## 17. Privacy, Data Governance and Project Status
 
 - The implementation repository is private during the current portfolio-documentation phase.
-- Do not commit Gemini API keys, `.env` files, credentials, personal information or unapproved catalogue data.
-- The curated 40-product test catalogue is the dataset intended for approved portfolio examples in this documentation.
-- A separate 200-product development catalogue and an older duplicate catalogue are excluded from the curated demo scope.
-- Review screenshots and Loom recordings before sharing; browser account details, secrets and private data must not be visible.
-- Any future public release requires a deliberate review of source code, dataset permissions, Git history, licensing and access control.
-- No public app URL is provided because deployment is not part of the current phase.
+- API keys, `.env` files, credentials, personal information and unapproved catalogue data must never be committed.
+- The curated 40-product test catalogue is the only dataset approved for portfolio examples and documentation.
+- The separate 200-product development catalogue and older duplicate catalogue are excluded from the curated demo scope.
+- Development databases, local runtime files and unapproved datasets must remain outside the public portfolio materials.
+- All screenshots, diagrams and Loom recordings must be reviewed before sharing to ensure browser account details, credentials, personal information and private data are not visible.
+- Any future public release requires a deliberate review of source code, dataset permissions, Git history, licensing and access controls.
+- No public application URL is available because deployment is outside the scope of the current phase.
+
+**Project status:** Working prototype; documentation and portfolio preparation in progress. No public deployment.
 
 ---
 
